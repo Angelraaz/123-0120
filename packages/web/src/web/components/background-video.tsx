@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { Pause, Play } from 'lucide-react';
 
 export function BackgroundVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const pausedByUser = useRef(false);
   const visible = useRef(true);
   const [enabled, setEnabled] = useState(false);
-  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -25,7 +23,7 @@ export function BackgroundVideo() {
     const video = videoRef.current;
     if (!video || !enabled) return;
     function resume() {
-      if (visible.current && !pausedByUser.current && !document.hidden) void video?.play().catch(() => setPlaying(false));
+      if (visible.current && !pausedByUser.current && !document.hidden) void video?.play().catch(() => {});
     }
     const observer = new IntersectionObserver(([entry]) => {
       visible.current = entry.isIntersecting;
@@ -45,17 +43,5 @@ export function BackgroundVideo() {
     };
   }, [enabled]);
 
-  function toggle() {
-    if (playing) { pausedByUser.current = true; videoRef.current?.pause(); }
-    else {
-      pausedByUser.current = false;
-      if (!enabled) setEnabled(true);
-      else void videoRef.current?.play().catch(() => setPlaying(false));
-    }
-  }
-
-  return <>
-    <div className="hero-backdrop" aria-hidden="true"><video ref={videoRef} aria-label="Video decorativo de reparación de laptop, sin sonido" aria-hidden="true" src={enabled ? '/videos/laptop-background.mp4' : undefined} poster="/images/laptop-poster.jpg" autoPlay={enabled} muted loop playsInline preload={enabled ? 'metadata' : 'none'} tabIndex={-1} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} /><div className="video-shade" /></div>
-    <button className="video-toggle" onClick={toggle} aria-label={playing ? 'Pausar video de fondo' : 'Reproducir video de fondo'}>{playing ? <Pause size={14} /> : <Play size={14} />}<span>{playing ? 'Pausar fondo' : 'Reproducir fondo'}</span><small>Sin sonido</small></button>
-  </>;
+  return <div className="hero-backdrop" aria-hidden="true"><video ref={videoRef} aria-hidden="true" src={enabled ? '/videos/laptop-background.mp4' : undefined} poster="/images/laptop-poster.jpg" autoPlay={enabled} muted loop playsInline preload={enabled ? 'metadata' : 'none'} tabIndex={-1} /><div className="video-shade" /></div>;
 }

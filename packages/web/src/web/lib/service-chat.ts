@@ -1,4 +1,5 @@
 import { business } from './business';
+import { faqs } from './faqs';
 
 export type ServiceReply = { text: string; topic?: string; cta?: string; whatsappMessage?: string; orientation?: boolean };
 export const welcomeReply: ServiceReply = { text: '¡Hola! Soy el asistente automático de AjrcServicios. Con gusto te orientaré sobre nuestros servicios. ¿Necesitas ayuda con tu computadora o quieres una página web?' };
@@ -24,6 +25,9 @@ export function getServiceReply(question: string, previousTopic = ''): ServiceRe
     topic, cta: 'Solicitar cotización por WhatsApp',
     whatsappMessage: `Hola, AjrcServicios. Me gustaría solicitar una cotización${topic ? ` sobre ${topic}` : ''}. Mi consulta: ${question.slice(0, 400)}`,
   };
+  const faq = faqs.find(([title]) => normalize(title).replace(/[¿?]/g, '').trim() === q.replace(/[¿?]/g, '').trim());
+  if (faq) return { text: faq[1], topic, orientation: /orientador|informacion.*compartir/.test(q) };
+  if (/orientador|orientacion|por donde empezar/.test(q)) return { text: 'Te guiaré con cuatro preguntas y un chequeo de seguridad. Es una orientación inicial, no un diagnóstico. Tus respuestas no se guardan.', topic, orientation: true };
   if (/persona|humano|asesor real|hablar con|contact|whatsapp|correo|telefono|agendar|reservar|cita/.test(q)) return {
     text: 'Claro, será un gusto atenderte personalmente. Puedes escribirnos por WhatsApp para coordinar atención presencial, a domicilio o remota, según tu caso. No necesitas compartir contraseñas ni archivos privados.',
     topic, cta: 'Hablar con AjrcServicios', whatsappMessage: `Hola, AjrcServicios. Quisiera recibir atención personal. ${question.slice(0, 400)}`,

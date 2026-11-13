@@ -11,3 +11,6 @@ Quitar la sección de proceso «Así de sencillo». CTAs de WhatsApp visibles en
 
 ## Video y asistente local
 Video aportado de 10s en fondo de la portada, sin pista de audio, autoplay muted/loop/playsInline, poster estático y overlay para lectura. Control de pausa visible; no autoplay con movimiento reducido/ahorro de datos y pausa fuera de pantalla. Sustituir ilustración CSS de portada por el video real. Logo original recortado únicamente a contenido y con fondo azul eliminado, PNG transparente. Asistente de servicios local y cordial (sin IA ni APIs), panel no modal, texto libre y sugerencias. Precios/cotizaciones siempre llevan a WhatsApp, sin inventar tarifas. Posición del chat a izquierda, WhatsApp a derecha; conservar badge.
+
+## Revisión aprobada: formulario y testimonios
+Sin control ni texto de audio visibles en portada; conservar preferencias de movimiento y ahorro de datos. Orientador seguro de cuatro pasos y seis FAQ dentro del asistente local. Sustituir sus secciones por formulario azul con campos nombre, teléfono, correo y problema; prepara mailto a correo comercial sin almacenamiento ni envío automático. Testimonios de Berthila Rossy, Carlos Mendoza y Mariana Silva aportados por el usuario, sin fotos ni puntuaciones inventadas. Mantener contacto, partners, analítica y badge.
